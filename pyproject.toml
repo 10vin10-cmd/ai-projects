@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai_toolbox"
+version = "0.1.0"
+description = "A small collection of helpful AI-related utilities."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [ {name = "Vinod Maddela", email = "10vin10@gmail.com"} ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "click==8.2.1"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==7.4.2",
+    "pytest-mock==3.11.0",
+]
+
+[project.scripts]
+ai-toolbox = "ai_toolbox.main:cli"

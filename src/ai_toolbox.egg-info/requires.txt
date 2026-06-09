@@ -1,0 +1,5 @@
+click==8.2.1
+
+[dev]
+pytest==7.4.2
+pytest-mock==3.11.0
