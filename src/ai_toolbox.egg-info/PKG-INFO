@@ -11,6 +11,8 @@ Requires-Python: >=3.8
 Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: click==8.2.1
+Requires-Dist: python-dotenv==1.1.1
+Requires-Dist: litellm==1.74.14
 Provides-Extra: dev
 Requires-Dist: pytest==7.4.2; extra == "dev"
 Requires-Dist: pytest-mock==3.11.0; extra == "dev"
