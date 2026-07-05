@@ -1,1 +1,26 @@
-.venv/
+# Secrets and environment variables
+.env
+.env.*
+
+# Python caches and build files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+build/
+dist/
+*.egg-info/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDEs and notebooks
+.ipynb_checkpoints/
+.gradio/
+
+# Other Files
+*.png
+*.pdf
+*.mp3

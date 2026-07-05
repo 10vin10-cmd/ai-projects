@@ -16,10 +16,13 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+
 dependencies = [
     "click==8.2.1",
     "python-dotenv==1.1.1",
-    "litellm==1.74.14"
+    "litellm==1.74.14",
+    "pandas>=2.0.0",
+    "flask==2.2.2"
 ]
 
 [project.optional-dependencies]

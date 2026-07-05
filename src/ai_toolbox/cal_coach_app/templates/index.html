@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cal Coach — AI Nutrition Assistant</title>
+    <!-- Core Bootstrap CDN layer to ensure layout styles display flawlessly -->
+    <link rel="stylesheet" href="https://jsdelivr.net">
+    
+    <!-- Self-contained fallback CSS to force light-mode visibility -->
+    <style>
+        body {
+            background-color: #f1f5f9 !important;
+            color: #1e293b !important;
+            min-height: 100vh;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        .main-card {
+            background: #ffffff !important;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: none;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .submit-btn {
+            background-color: #10b981 !important;
+            border: none;
+            color: white !important;
+            font-weight: 600;
+            padding: 12px;
+        }
+        .submit-btn:hover {
+            background-color: #059669 !important;
+        }
+        .response-box {
+            background-color: #ffffff !important;
+            border-radius: 12px;
+            border-left: 5px solid #10b981;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            max-width: 650px;
+            margin: 20px auto 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 1. The Main Input Form Card -->
+        <div class="card main-card p-4">
+            <h2 class="text-center mb-1 text-success fw-bold">🥗 Cal Coach App</h2>
+            <p class="text-center text-muted mb-4">Intelligent Multi-Modal Calorie Tracking System</p>
+            
+            <form id="nutritionForm" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-dark">Upload Meal Image Snapshot:</label>
+                    <input type="file" name="file" id="fileInput" class="form-control" accept="image/*" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-dark">Custom Dietary Instructions / Macro Goals:</label>
+                    <input type="text" name="user_query" id="queryInput" class="form-control" placeholder="e.g., Focus on protein breakdown.">
+                </div>
+                <button type="submit" id="submitBtn" class="btn submit-btn w-100 fw-bold">Analyze Meal Nutrition</button>
+                    </form>
+                </div>
+
+        <!-- 2. Async Loading Screen Component (Hidden by default) -->
+        <div id="loaderCard" class="card main-card p-4 mt-4 text-center d-none">
+            <div class="spinner-border text-success mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+            <h5 class="text-dark fw-bold">🧠 Scanning Meal Elements...</h5>
+            <p class="text-muted mb-0">Processing calorie densities (takes ~3-5 seconds).</p>
+        </div>
+
+        <!-- 3. Dynamic Output Container Card -->
+        <div id="responseCard" class="card response-box p-4 d-none">
+            <h4 class="text-dark fw-bold mb-3">User Query: <small id="displayQuery" class="text-muted"></small></h4>
+            <hr>
+            <div id="markdownContent"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript Non-Blocking Event Listener Handler Block -->
+    <script>
+        document.getElementById('nutritionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const form = document.getElementById('nutritionForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const loaderCard = document.getElementById('loaderCard');
+            const responseCard = document.getElementById('responseCard');
+            const markdownContent = document.getElementById('markdownContent');
+            const displayQuery = document.getElementById('displayQuery');
+            
+            submitBtn.disabled = true;
+            loaderCard.classList.remove('d-none');
+            responseCard.classList.add('d-none');
+            
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayQuery.innerText = data.user_query;
+                    markdownContent.innerHTML = data.html_output;
+                    responseCard.classList.remove('d-none');
+                } else {
+                    alert('⚠️ API Error: ' + data.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('❌ Network connection timeout error occurred.');
+            } finally {
+                submitBtn.disabled = false;
+                loaderCard.classList.add('d-none');
+            }
+        });
+    </script>
+</body>
+</html>

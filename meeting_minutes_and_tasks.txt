@@ -1,0 +1,52 @@
+# MEETING MINUTES
+
+## Meeting Details
+**Type:** Quarterly Financial Review & Forecast Presentation  
+**Quarter Discussed:** Q2 Results & Q3 Outlook  
+**Date:** [Not specified in transcript]
+
+---
+
+## Key Points Discussed
+
+### Risk Management & Capital Position
+- **Value at Risk (VaR) Assessment:** Current VaR at 99% confidence level shows maximum potential loss will not exceed $5 million in the next trading day
+- **Capital Adequacy:** Tier 1 Capital Ratio stands at a healthy 12.5%, indicating strong regulatory compliance and financial stability
+- **Leverage Management:** Conservative approach has been adopted for managing leverage ratios
+
+### Financial Performance & Forecast
+- **Q3 Revenue Projection:** Expected revenue of approximately $135 million
+- **Growth Rate:** Anticipated 8% quarter-over-quarter growth
+- **Growth Drivers:** 
+  - Cutting edge blockchain solutions
+  - Artificial Intelligence (AI)-driven predictive analytics
+
+### Strategic Initiatives
+- **Pay Plus IPO:** Upcoming Initial Public Offering (IPO) of FinTech subsidiary
+  - Expected capital raise: $200 million
+  - Purpose: Enhance liquidity and fund aggressive growth strategies
+
+### Stakeholder Relations
+- Acknowledgment and appreciation expressed to shareholders for continued support
+- Positive outlook communicated for Q3 performance
+
+---
+
+## Decisions Made
+
+1. **Maintain conservative leverage management approach** for risk mitigation
+2. **Proceed with Pay Plus IPO** to raise $200 million in capital
+3. **Focus growth strategy** on blockchain solutions and AI-driven predictive analytics
+4. **Target Q3 revenue** of $135 million with 8% QoQ growth
+
+---
+
+# TASK LIST
+
+## Immediate Action Items
+
+| # | Task | Assignee | Deadline | Priority |
+|---|------|----------|----------|----------|
+| 1 | **Finalize Pay Plus IPO documentation** and regulatory filings | CFO / Legal Team | 30 days prior to IPO date | HIGH |
+| 2 | **Prepare detailed IPO roadshow presentation** for potential investors | Investor Relations / Marketing | 45 days prior to IPO date | HIGH |
+| 3
