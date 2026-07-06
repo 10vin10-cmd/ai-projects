@@ -17,17 +17,19 @@ jobs:
       - name: Configure OCI CLI credentials
         run: |
           mkdir -p ~/.oci
-          echo "${{ secrets.OCI_PRIVATE_KEY }}" > ~/.oci/oci_api_key.pem
+          printf '%s\n' "${{ secrets.OCI_PRIVATE_KEY }}" > ~/.oci/oci_api_key.pem
           chmod 600 ~/.oci/oci_api_key.pem
-          cat <<EOF > ~/.oci/config
-          [DEFAULT]
-          user=${{ secrets.OCI_USER_OCID }}
-          fingerprint=${{ secrets.OCI_FINGERPRINT }}
-          tenancy=${{ secrets.OCI_TENANCY_OCID }}
-          region=${{ secrets.OCI_REGION }}
-          key_file=~/.oci/oci_api_key.pem
-          EOF
-          
+          {
+            echo "[DEFAULT]"
+            echo "user=${{ secrets.OCI_USER_OCID }}"
+            echo "fingerprint=${{ secrets.OCI_FINGERPRINT }}"
+            echo "tenancy=${{ secrets.OCI_TENANCY_OCID }}"
+            echo "region=${{ secrets.OCI_REGION }}"
+            echo "key_file=$HOME/.oci/oci_api_key.pem"
+          } > ~/.oci/config
+          chmod 600 ~/.oci/config
+          cat ~/.oci/config
+
       - name: Trigger Resource Manager Apply job
         run: |
           oci resource-manager job create-apply-job \
