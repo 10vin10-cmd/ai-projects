@@ -27,12 +27,11 @@ jobs:
           region=${{ secrets.OCI_REGION }}
           key_file=~/.oci/oci_api_key.pem
           EOF
-
+          
       - name: Trigger Resource Manager Apply job
         run: |
-          oci resource-manager job create \
+          oci resource-manager job create-apply-job \
             --stack-id "${{ secrets.OCI_STACK_ID }}" \
-            --operation APPLY \
             --execution-plan-strategy AUTO_APPROVED \
             --wait-for-state SUCCEEDED --wait-for-state FAILED \
             --max-wait-seconds 600 \
