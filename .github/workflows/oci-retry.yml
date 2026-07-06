@@ -1,0 +1,39 @@
+name: Retry Oracle Cloud Instance Creation
+
+on:
+  schedule:
+    # Runs at the top of every hour
+    - cron: '0 * * * *'
+  workflow_dispatch: {}   # lets you also trigger it manually from the Actions tab
+
+jobs:
+  apply-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install OCI CLI
+        run: |
+          pip install oci-cli
+
+      - name: Configure OCI CLI credentials
+        run: |
+          mkdir -p ~/.oci
+          echo "${{ secrets.OCI_PRIVATE_KEY }}" > ~/.oci/oci_api_key.pem
+          chmod 600 ~/.oci/oci_api_key.pem
+          cat <<EOF > ~/.oci/config
+          [DEFAULT]
+          user=${{ secrets.OCI_USER_OCID }}
+          fingerprint=${{ secrets.OCI_FINGERPRINT }}
+          tenancy=${{ secrets.OCI_TENANCY_OCID }}
+          region=${{ secrets.OCI_REGION }}
+          key_file=~/.oci/oci_api_key.pem
+          EOF
+
+      - name: Trigger Resource Manager Apply job
+        run: |
+          oci resource-manager job create \
+            --stack-id "${{ secrets.OCI_STACK_ID }}" \
+            --operation APPLY \
+            --execution-plan-strategy AUTO_APPROVED \
+            --wait-for-state SUCCEEDED --wait-for-state FAILED \
+            --max-wait-seconds 600 \
+            || echo "Apply job failed or capacity unavailable — will retry next scheduled run."
