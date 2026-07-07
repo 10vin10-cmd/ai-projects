@@ -35,6 +35,5 @@ jobs:
           oci resource-manager job create-apply-job \
             --stack-id "${{ secrets.OCI_STACK_ID }}" \
             --execution-plan-strategy AUTO_APPROVED \
-            --debug \
             || echo "Apply job failed or capacity unavailable — will retry next scheduled run."
       
