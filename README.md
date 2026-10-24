@@ -1,47 +1,34 @@
-# ai_toolbox
+# ai-projects
 
-A small collection of helpful AI-related utilities.
+Hands-on GenAI and data-engineering work: RAG pipelines, LLM tool-calling agents, vector search, speech and vision apps, and SQL/Python practice. Most apps run locally against Ollama or a hosted model through a shared config layer.
 
-## Installation
+## What's inside
 
-Install from PyPI (when published):
+| Area | Path | Highlights |
+|---|---|---|
+| **RAG & document Q&A** | [`src/ai_toolbox/gradio/pdf_tutor.py`](src/ai_toolbox/gradio/pdf_tutor.py) | PDF tutor: PyMuPDF + OCR (Tesseract) ingestion, chunking, FAISS index, LangChain chain on a local Ollama model, Gradio UI, parallel page processing with content-hash caching |
+| **Vector search** | [`src/ai_toolbox/vector/`](src/ai_toolbox/vector) | Semantic and filtered search, result limiting, retrieval-system comparison, a RAG chatbot over a structured food dataset |
+| **LLM apps (Gradio)** | [`src/ai_toolbox/gradio/`](src/ai_toolbox/gradio) | Meeting-minutes assistant (speech → transcript → action items), voice translator, image captioning, YouTube summarise-and-Q&A, tool-calling agent |
+| **Web app** | [`src/ai_toolbox/genai_flask_app/`](src/ai_toolbox/genai_flask_app) | Flask GenAI app with model abstraction and config layer |
+| **Calorie coach** | [`cal_coach_app/`](cal_coach_app) | Flask app with HTML front end |
+| **LinkedIn icebreaker** | [`icebreaker/`](icebreaker) | LlamaIndex + watsonx embeddings over profile data, CLI and Gradio UI |
+| **Agent & retrieval labs** | [`JL/`](JL) | Notebooks: manual tool-calling agents, LCEL pipelines, LlamaIndex advanced retrievers, FAISS similarity search, text-to-chart agent |
+| **LLM internals** | [`logprob.ipynb`](logprob.ipynb), [`apicosts.ipynb`](apicosts.ipynb) | Token log-probabilities and API cost comparison across models |
+| **SQL / data practice** | [`Arch/`](Arch) | Window-function queries (rolling averages), JSON flattening |
+| **CI/CD** | [`.github/workflows/`](.github/workflows) | Python package tests; OCI Resource Manager apply with retry for free-tier capacity |
 
+## Running
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -e .
+pytest
 ```
-pip install ai_toolbox
-```
 
-## Quick start
+Individual apps list their own dependencies (see `icebreaker/requirements.txt`). Model keys are read from a local `.env`, which is git-ignored and never committed.
 
-Use the library from Python:
+## Stack
 
-```py
-from ai_toolbox import add
+Python · LangChain · LlamaIndex · FAISS · ChromaDB · Ollama · OpenAI / watsonx · Gradio · Flask · Tesseract · GitHub Actions
 
-print(add(2, 3))  # -> 5
-```
-
-Or use the CLI after installing the package:
-
-```
-ai-toolbox add 2 3
-```
-
-See `docs/index.md` for more details.
-
-Notes on logs for Dependency: 
-ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-ai-toolbox 0.1.0 requires click==8.2.1, but you have click 8.1.8 which is incompatible.
-ai-toolbox 0.1.0 requires flask==2.2.2, but you have flask 3.1.3 which is incompatible.
-ai-toolbox 0.1.0 requires litellm==1.74.14, but you have litellm 1.83.7 which is incompatible.
-ai-toolbox 0.1.0 requires python-dotenv==1.1.1, but you have python-dotenv 1.0.1 which is incompatible.
-
-For RAG:
-!pip install ibm-watsonx-ai==0.2.6
-!pip install langchain==0.1.16
-!pip install langchain-ibm==0.1.4
-!pip install transformers==4.41.2
-!pip install huggingface-hub==0.23.4
-!pip install sentence-transformers==2.5.1
-!pip install chromadb
-!pip install wget==3.2
-!pip install --upgrade torch --index-url https://download.pytorch.org/whl/cpu
+Sample data files (`FoodDataSet.json`, `companypolicies.txt`, `meeting_minutes_and_tasks.txt`, `sample-meeting.wav`) are synthetic course datasets used by the demos.
